@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - /var/lib/postgresql/data/
+    container_name: postgres_container
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=walletTest
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1328
+
+  testproject:
+    build: .
+    image: testproject_image
+    container_name: testproject_container
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/walletTest
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1328
+
+
