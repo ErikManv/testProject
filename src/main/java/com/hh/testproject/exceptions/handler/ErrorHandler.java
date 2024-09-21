@@ -25,7 +25,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> handleEnumValidationErrors(HttpMessageNotReadableException ex) {
-        return new ResponseEntity<>("operation types:WITHDRAW or DEPOSIT",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("operation types: WITHDRAW or DEPOSIT",HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ValidationException.class)
