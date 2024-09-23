@@ -38,13 +38,13 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public TransactionResponseDto makeTransaction(TransactionRequestDto requestDto) {
         Wallet wallet = walletRepository.findById(requestDto.walletId).orElseThrow(() -> new NotFoundException("wallet not found"));
-        if(wallet.getBalance() < requestDto.amount) {
-            throw new ValidationException("insufficient balance. Change amount");
-        }
+
         if (OperationType.valueOf(requestDto.operationType) == OperationType.DEPOSIT) {
             wallet.setBalance(wallet.getBalance() + requestDto.amount);
-        } else if (OperationType.valueOf(requestDto.operationType) == OperationType.WITHDRAW) {
+        } else if (OperationType.valueOf(requestDto.operationType) == OperationType.WITHDRAW && wallet.getBalance() >= requestDto.amount) {
             wallet.setBalance(wallet.getBalance() - requestDto.amount);
+        } else {
+            throw new ValidationException("insufficient balance. Change amount");
         }
         walletRepository.save(wallet);
         return TransactionResponseDto.builder()
