@@ -16,10 +16,14 @@ public class WalletServiceImpl implements WalletService {
     private final WalletRepository walletRepository;
 
     @Override
-    public Wallet createWallet(WalletDtoRequest walletDto) {
+    public WalletDtoResponse createWallet(WalletDtoRequest walletDto) {
         Wallet newWallet = new Wallet();
         newWallet.setBalance(walletDto.initBalance);
-        return walletRepository.save(newWallet);
+
+        walletRepository.save(newWallet);
+        return WalletDtoResponse.builder()
+            .balance(newWallet.getBalance())
+            .build();
     }
 
     @Override

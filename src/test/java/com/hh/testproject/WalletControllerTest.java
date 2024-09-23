@@ -34,7 +34,6 @@ class WalletControllerTest {
             .balance(1000L)
             .build();
 
-        System.out.println(wallet.getId());
         WalletDtoResponse walletDtoResponse = WalletDtoResponse.builder()
             .balance(wallet.getBalance())
             .build();
@@ -129,7 +128,6 @@ class WalletControllerTest {
             .build();
 
         when(walletService.makeTransaction(requestDto)).thenThrow(new NotFoundException("wrong wallet id"));
-
 
         assertThrowsExactly(NotFoundException.class, () -> this.walletController.makeTransaction(requestDto));
     }

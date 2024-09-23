@@ -17,9 +17,8 @@ public class WalletController {
     private final WalletService walletService;
 
     @PostMapping("api/v1/wallet/create")
-    public ResponseEntity<Void> createWallet(@Valid @RequestBody WalletDtoRequest wallet) {
-        walletService.createWallet(wallet);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<WalletDtoResponse> createWallet(@Valid @RequestBody WalletDtoRequest wallet) {
+        return new ResponseEntity<>(walletService.createWallet(wallet), HttpStatus.OK);
     }
 
     @PostMapping("api/v1/wallet")

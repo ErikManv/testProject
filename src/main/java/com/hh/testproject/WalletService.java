@@ -11,8 +11,7 @@ public interface WalletService {
 
     TransactionResponseDto makeTransaction(TransactionRequestDto requestDto);
 
-
-    Wallet createWallet(WalletDtoRequest request);
+    WalletDtoResponse createWallet(WalletDtoRequest request);
 
     WalletDtoResponse getWalletBalance(Long walletId);
 }
