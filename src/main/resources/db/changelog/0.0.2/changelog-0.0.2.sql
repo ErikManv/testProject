@@ -9,12 +9,6 @@ CREATE TABLE wallet
 );
 
 INSERT INTO wallet
-VALUES (DEFAULT, 7000);
-INSERT INTO wallet
-VALUES (DEFAULT, 7659);
-INSERT INTO wallet
-VALUES (DEFAULT, 9878);
-INSERT INTO wallet
-VALUES (DEFAULT, 9878);
+VALUES (DEFAULT, 7000)
 
 --rollback truncate table wallet;

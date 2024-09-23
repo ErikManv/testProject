@@ -1,5 +1,6 @@
 package com.hh.testproject;
 
+import com.hh.testproject.dto.TransactionResponseDto;
 import com.hh.testproject.dto.WalletDtoRequest;
 import com.hh.testproject.dto.WalletDtoResponse;
 import com.hh.testproject.dto.TransactionRequestDto;
@@ -22,9 +23,8 @@ public class WalletController {
     }
 
     @PostMapping("api/v1/wallet")
-    public ResponseEntity<Void> makeTransaction(@Valid @RequestBody TransactionRequestDto requestDto) {
-        walletService.makeTransaction(requestDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<TransactionResponseDto> makeTransaction(@Valid @RequestBody TransactionRequestDto requestDto) {
+        return new ResponseEntity<>(walletService.makeTransaction(requestDto), HttpStatus.OK);
     }
 
     @GetMapping("api/v1/wallets/{walletId}")

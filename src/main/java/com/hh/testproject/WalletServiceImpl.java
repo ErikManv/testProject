@@ -1,5 +1,6 @@
 package com.hh.testproject;
 
+import com.hh.testproject.dto.TransactionResponseDto;
 import com.hh.testproject.dto.WalletDtoRequest;
 import com.hh.testproject.dto.WalletDtoResponse;
 import com.hh.testproject.exceptions.NotFoundException;
@@ -28,19 +29,24 @@ public class WalletServiceImpl implements WalletService {
         return WalletDtoResponse.builder()
             .balance(wallet.getBalance())
             .build();
-    };
+    }
 
     @Override
-    public void makeTransaction(TransactionRequestDto requestDto) {
+    public TransactionResponseDto makeTransaction(TransactionRequestDto requestDto) {
         Wallet wallet = walletRepository.findById(requestDto.walletId).orElseThrow(() -> new NotFoundException("wallet not found"));
         if(wallet.getBalance() < requestDto.amount) {
             throw new ValidationException("insufficient balance. Change amount");
         }
-        if (requestDto.operationType == OperationType.DEPOSIT) {
+        if (OperationType.valueOf(requestDto.operationType) == OperationType.DEPOSIT) {
             wallet.setBalance(wallet.getBalance() + requestDto.amount);
-        } else if (requestDto.operationType == OperationType.WITHDRAW) {
+        } else if (OperationType.valueOf(requestDto.operationType) == OperationType.WITHDRAW) {
             wallet.setBalance(wallet.getBalance() - requestDto.amount);
         }
         walletRepository.save(wallet);
+        return TransactionResponseDto.builder()
+            .balance(wallet.getBalance())
+            .operationType(OperationType.valueOf(requestDto.operationType))
+            .amount(requestDto.amount)
+            .build();
     }
 }

@@ -1,6 +1,5 @@
 package com.hh.testproject.dto;
 
-import com.hh.testproject.OperationType;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -14,7 +13,7 @@ public class TransactionRequestDto {
    public Long walletId;
 
    @NotNull(message = "operationType field cannot be empty")
-   public OperationType operationType;
+   public String operationType;
 
    @NotNull(message = "amount field cannot be empty")
    @Positive(message = "deposit amount have to be bigger than 0")

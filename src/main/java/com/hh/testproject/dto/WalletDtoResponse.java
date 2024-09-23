@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WalletDtoResponse {
 
-    @NotNull(message = "initBalance field cannot be empty")
-    @Positive(message = "deposit amount have to be bigger than 0")
+    @NotNull(message = "balance field cannot be empty")
+    @Positive(message = "balance amount have to be bigger than 0")
     public Long balance;
 }
